@@ -52,6 +52,7 @@ CITY_SCROLL.cityObj = {
             // 自定义事件 滚动结束
             scroll.on('scrollEnd',function(e){
                 toggleFixed(e);
+                self.tempTime = 300;
             });
 
             // 自定义事件 滚动开始
@@ -93,12 +94,12 @@ CITY_SCROLL.cityObj = {
 
                     endIndex = parseInt(event.target.dataset.index) + Math.floor((sideHeight - self.sideOffset) / itemHeight);
 
-                    scroll.scrollTo(0, -self.listItem[(endIndex < 0 ? 0 : endIndex > 24 ? 24 : endIndex)].offsetTop,300);
+                    scroll.scrollTo(0, -self.listItem[(endIndex < 0 ? 0 : endIndex > 24 ? 24 : endIndex)].offsetTop);
                 }else{
                     
                     endIndex = parseInt(event.target.dataset.index) - Math.floor((self.sideOffset - sideHeight) / itemHeight);
 
-                    scroll.scrollTo(0, -self.listItem[(endIndex < 0 ? 0 :endIndex > 24 ? 24: endIndex)].offsetTop,300);
+                    scroll.scrollTo(0, -self.listItem[(endIndex < 0 ? 0 :endIndex > 24 ? 24: endIndex)].offsetTop);
                 }
                 
                 return false;
@@ -113,7 +114,7 @@ CITY_SCROLL.cityObj = {
             // 导航侧栏
             $('.city-shortcut li').on(touchDown,function(e){
                 self.tempTime = 100;
-                scroll.scrollTo(0, -self.listItem[e.target.dataset.index].offsetTop,300);
+                scroll.scrollTo(0, -self.listItem[e.target.dataset.index].offsetTop);
                 return false;
             });
         }
@@ -145,8 +146,8 @@ CITY_SCROLL.cityObj = {
                     offset = (self.titleHeight - offset);
                     if (offset >= self.titleHeight){
                         if (self.tempTime < 300) {
-
-                            showToastText(subStr($(item).parents('.list-group').find('.list-group-item'), e.y));
+                            console.log(item)
+                            showToastText(subStr($('.list-group').eq(index).find('.list-group-item'), e.y));
                             // return false;
                         }
                         self.fixedElm.attr('style', 'transform:translate3d(0,0,0)').find('.fixed-title').html($(item).html());
@@ -199,6 +200,7 @@ CITY_SCROLL.cityObj = {
 
                     tempId = $this.data('id');
                     result = $this.data('city').split('')[0];
+                    console.log($this.data('city'))
                 }
             });
             return result;
