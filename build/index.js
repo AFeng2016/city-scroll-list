@@ -146,7 +146,7 @@ CITY_SCROLL.cityObj = {
                     offset = (self.titleHeight - offset);
                     if (offset >= self.titleHeight){
                         if (self.tempTime < 300) {
-                            console.log(item)
+                            
                             showToastText(subStr($('.list-group').eq(index).find('.list-group-item'), e.y));
                             // return false;
                         }
@@ -200,7 +200,7 @@ CITY_SCROLL.cityObj = {
 
                     tempId = $this.data('id');
                     result = $this.data('city').split('')[0];
-                    console.log($this.data('city'))
+                    
                 }
             });
             return result;
