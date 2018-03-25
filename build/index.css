@@ -31,6 +31,7 @@ ul,li{
     width: 100%;
     height: 100%;
     overflow:hidden;
+    padding-top:40px;
 }
 .city-listview .city-list-content {
     box-shadow: 0 3px 6px #eee;

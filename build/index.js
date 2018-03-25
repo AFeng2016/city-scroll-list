@@ -47,6 +47,7 @@ CITY_SCROLL.cityObj = {
             // 自定义事件 滚动事件
             scroll.on('scroll',function(e){
                 toggleFixed(e);
+                
             });
             
             // 自定义事件 滚动结束
@@ -55,15 +56,15 @@ CITY_SCROLL.cityObj = {
                 self.tempTime = 300;
             });
 
-            // 自定义事件 滚动开始
+            // 触摸开始
             $('#J_listContent').on(touchDown,function(e){
                 self.startTempTime = e.timeStamp;
             });
 
-            // 自定义事件 触摸结束
+            // 触摸结束
             $('#J_listContent').on(touchUp,function(e){
                 self.tempTime = e.timeStamp - self.startTempTime;
-                // console.log(self.tempTime)
+                
             });
 
             // 点击事件
@@ -94,12 +95,12 @@ CITY_SCROLL.cityObj = {
 
                     endIndex = parseInt(event.target.dataset.index) + Math.floor((sideHeight - self.sideOffset) / itemHeight);
 
-                    scroll.scrollTo(0, -self.listItem[(endIndex < 0 ? 0 : endIndex > 24 ? 24 : endIndex)].offsetTop);
+                    scroll.scrollTo(0, -(self.listItem[(endIndex < 0 ? 0 : endIndex > 24 ? 24 : endIndex)].offsetTop + self.titleHeight),100);
                 }else{
                     
                     endIndex = parseInt(event.target.dataset.index) - Math.floor((self.sideOffset - sideHeight) / itemHeight);
 
-                    scroll.scrollTo(0, -self.listItem[(endIndex < 0 ? 0 :endIndex > 24 ? 24: endIndex)].offsetTop);
+                    scroll.scrollTo(0, -(self.listItem[(endIndex < 0 ? 0 : endIndex > 24 ? 24 : endIndex)].offsetTop + self.titleHeight),100);
                 }
                 
                 return false;
@@ -108,13 +109,12 @@ CITY_SCROLL.cityObj = {
             // 导航侧栏
             $('.city-shortcut li').on(touchUp,function(e){
                 self.isChange = false;
-                return false;
             });
 
             // 导航侧栏
             $('.city-shortcut li').on(touchDown,function(e){
                 self.tempTime = 100;
-                scroll.scrollTo(0, -self.listItem[e.target.dataset.index].offsetTop);
+                scroll.scrollTo(0, -(self.listItem[e.target.dataset.index].offsetTop+self.titleHeight),100);
                 return false;
             });
         }
@@ -128,7 +128,7 @@ CITY_SCROLL.cityObj = {
 
             var isfixed = self.fixedElm.hasClass('active');
 
-            if (e.y < -self.titleHeight && !isfixed) {
+            if (e.y < -self.titleHeight*2 && !isfixed) {
 
                 self.fixedElm.addClass('active');
             } else if (e.y > -self.titleHeight && isfixed) {
@@ -139,16 +139,15 @@ CITY_SCROLL.cityObj = {
             // 滑动切换分组标题
             self.listItem.each(function (index,item){
 
-                var offset = item.offsetTop + e.y;
+                var offset = (item.offsetTop + self.titleHeight) + e.y;
  
                 if (offset <= self.titleHeight){
-
+                    
                     offset = (self.titleHeight - offset);
                     if (offset >= self.titleHeight){
                         if (self.tempTime < 300) {
                             
                             showToastText(subStr($('.list-group').eq(index).find('.list-group-item'), e.y));
-                            // return false;
                         }
                         self.fixedElm.attr('style', 'transform:translate3d(0,0,0)').find('.fixed-title').html($(item).html());
                     }else{
