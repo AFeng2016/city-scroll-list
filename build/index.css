@@ -123,6 +123,9 @@ ul,li{
 .name-text.show{
     display: flex;
 }
+.zoom-bottom{
+    height: 100px;
+}
 @keyframes top{
     from{
         transform:translateY(-100%)

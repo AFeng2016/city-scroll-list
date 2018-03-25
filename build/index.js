@@ -234,6 +234,7 @@ CITY_SCROLL.cityObj = {
                 tpl.push('        </li>');
             });
 
+                    tpl.push('<div class="zoom-bottom"></div>');
             tpl.push('    </ul>');
             tpl.push('</div>');
             tpl.push('<div class="city-shortcut">');
@@ -256,8 +257,7 @@ CITY_SCROLL.cityObj = {
             tpl.push('    ★热门城市');
             tpl.push('    </h2>');
             tpl.push('</div>');
-            tpl.push('<div class="name-text">南');
-            tpl.push('</div>');
+            tpl.push('<div class="name-text">南</div>');
 
         $('#J_listContent').html(tpl.join(''));
     }
